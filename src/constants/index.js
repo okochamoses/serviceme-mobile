@@ -2,7 +2,10 @@ import {Dimensions} from "react-native"
 const colors = {
     primary: "#EB5757",
     white: "#ffffff",
-    dark: "#333333"
+    dark: "#333333",
+    light: "#EFEFEF",
+    mid: "#999999",
+    success: "#27AE60"
 }
 const sizes = {
     basePadding: 25,

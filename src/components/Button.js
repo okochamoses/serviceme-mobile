@@ -14,7 +14,7 @@ const Button = (props) => {
     // props.style? props.style] : null
     console.log(containerStyles)
     return (
-        <TouchableOpacity style={containerStyles}>
+        <TouchableOpacity style={containerStyles} {...props}>
             <Typo size="md" style={textStyles}>{props.children}</Typo>
         </TouchableOpacity>
     )

@@ -5,6 +5,7 @@ import theme from "../constants"
 const Typo = (props) => {
     const textStyles = [styles.text]
     props.size ? textStyles.push({ fontSize: theme.sizes[props.size] }) : null
+    props.alt ? textStyles.push({ fontFamily: 'SFProText-Light' }) : null
     props.color ? textStyles.push({ color: theme.colors[props.color] }) : null
     switch (props.weight) {
         case "l":
@@ -31,6 +32,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: theme.font.regular,
         color: theme.colors.dark,
+    },
+    alternateText: {
+        fontFamily: 'SFProText-Light'
     }
 })
 
