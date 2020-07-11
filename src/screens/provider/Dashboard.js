@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, StatusBar } from "react-native";
 import theme from "../../constants"
 import Typo from '../../components/Typo';
 import Block from '../../components/Block';
@@ -8,14 +8,16 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Container from '../../components/Container';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ListItem from '../../components/ListItem';
 
-const ProviderDashboard = ({ navigation }) => {
+const ProviderDashboard = ({ navigation, route }) => {
     const [profile, setProfile] = useState({})
 
     useEffect(() => {
         async function loadProfile() {
             await _loadProfile()
         }
+        console.log(route)
         loadProfile()
     }, [])
 
@@ -24,12 +26,27 @@ const ProviderDashboard = ({ navigation }) => {
         await setProfile(profile)
     }
 
+    const getGreeting = () => {
+        const currentTime = new Date().getHours();
+        console.log(currentTime)
+        if(currentTime >= 0 && currentTime < 4) {
+            return "Still awake? "
+        }else if(currentTime >= 4 && currentTime < 12) {
+            return "Good morning "
+        } else if(currentTime >= 12 && currentTime < 17) {
+            return "Good afternoon "
+        } else if(currentTime >= 17 && currentTime < 12) {
+            return "Good Evening "
+        }
+    }
+
     return (
         <>
-        <SafeAreaView style={{backgroundColor: theme.colors.primary}}></SafeAreaView>
+            <StatusBar barStyle="light-content" />
+            <SafeAreaView style={{ backgroundColor: theme.colors.primary }}></SafeAreaView>
             <Block center>
-                <Block style={{ width: "100%", height: 0.2 * height, backgroundColor: theme.colors.primary, padding: 10 }}>
-                    <Typo size="xl" weight="l" color="white">Good morning</Typo>
+                <Block style={{ width: "100%", height: 0.2 * height, backgroundColor: theme.colors.primary, paddingHorizontal: 20, paddingTop: 10 }}>
+    <Typo size="xl" weight="l" color="white">{getGreeting()}</Typo>
                     <Typo size="xl" color="white">{profile.firstName}</Typo>
                 </Block>
                 <Block center style={{ paddingHorizontal: 10 }}>
@@ -50,20 +67,13 @@ const ProviderDashboard = ({ navigation }) => {
                     </Block>
 
                     <Block style={{ paddingVertical: 20 }}>
-                        <Typo size="lg" weight="s">My Businesses</Typo>
-                        <Block style={{}}>
+                        <Typo weight="s" style={{ paddingBottom: 10, paddingHorizontal: 10 }}>My Businesses</Typo>
+                        <Block style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.mid }} />
+                        <Block>
                             {profile.businesses === undefined ?
                                 null :
                                 profile.businesses.map(business => (
-                                    <Block row style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.mid, justifyContent: "space-between", alignItems: "center" }}>
-                                        <View style={{ paddingVertical: 15 }}>
-                                            <Typo weight="l">{business.businessName}</Typo>
-                                            <Typo size="sm" weight="l" color="mid">Category: {business.category.name}</Typo>
-                                        </View>
-                                        <View>
-                                            <Icon name="chevron-right" size={24} />
-                                        </View>
-                                    </Block>
+                                    <ListItem key={business._id} title={business.businessName} subtitle={"Category: " + business.category.name} />
                                 ))}
                         </Block>
                     </Block>

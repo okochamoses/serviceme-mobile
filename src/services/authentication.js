@@ -1,5 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from "@react-native-community/async-storage"
+import React, { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 
 const getToken = async () => {
     try {
@@ -66,3 +68,13 @@ export const getProfile = async () => {
         return { status: 10, description: "There was an error connecting to the server" }
     }
 }
+
+export const getCategories = async () => {
+    try {
+        return await get("/categories")
+    } catch (error) {
+        console.log(error)
+        return { status: 10, description: "There was an error connecting to the server" }
+    }
+}
+

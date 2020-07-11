@@ -12,9 +12,12 @@ import Typo from '../components/Typo';
 import Block from '../components/Block';
 import Input from '../components/Input';
 import { login, getProfile } from "../services/authentication"
-import { AuthContext } from '../contexts/AuthContext';
+import AuthContextProvider, { AuthContext } from '../contexts/AuthContext';
 
 const Login = ({ navigation }) => {
+    // const auth = useContext(AuthContext);
+    // console.log("STATE", auth)
+
     const [email, setEmail] = useState("dev.mosesokocha@gmail.com")
     const [password, setPassword] = useState("Password12$")
     const [rememberMe, setRememberMe] = useState(false)
@@ -25,8 +28,10 @@ const Login = ({ navigation }) => {
     const [errorModal, setErrorModal] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
 
+    const { isAuthenticated, toggleIsAuthenticated } = useContext(AuthContext);
 
-    useEffect(() => _renderFingerprintIcon, [])
+    console.log("YESSS", isAuthenticated)
+    // useEffect(() => _renderFingerprintIcon, [])
 
 
     const _doLogin = async () => {
@@ -39,14 +44,13 @@ const Login = ({ navigation }) => {
                 const { status, data } = await getProfile()
                 if (status === 0) {
                     await AsyncStorage.setItem('profile', JSON.stringify(data));
-                    navigation.navigate("Dashboard")
+                    toggleIsAuthenticated();
                 } else {
                     console.log(status)
                 }
             } catch (error) {
                 // Error saving data
                 console.log(error)
-                navigation.navigate("Dashboard")
             }
         } else {
             // display error modal

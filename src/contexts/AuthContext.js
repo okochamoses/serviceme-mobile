@@ -1,9 +1,33 @@
-import React from 'react';
+import React, {Component} from 'react';
 
+export const AuthContext = React.createContext({isAuthenticated: false, isLoading: false});
 
-const auth = {
+class AuthContextProvider extends Component {
+  state = {
     isAuthenticated: false,
-    isLoading: false,
+    isLoading: true,
+  };
+
+  toggleIsAuthenticated = () => {
+    this.setState({isAuthenticated: !this.state.isAuthenticated});
+  };
+
+  toggleIsLoading = () => {
+    this.setState({isLoading: !this.state.isLoading});
+  };
+
+  render() {
+    return (
+      <AuthContext.Provider
+        value={{
+          ...this.state,
+          toggleIsAuthenticated: this.toggleIsAuthenticated,
+          toggleIsLoading: this.toggleIsLoading,
+        }}>
+        {this.props.children}
+      </AuthContext.Provider>
+    );
   }
-  
-  export const AuthContext = React.createContext(auth);
+}
+
+export default AuthContextProvider;

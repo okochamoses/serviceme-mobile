@@ -13,8 +13,8 @@ const Input = (props) => {
     props.bordered ? textStyles.push(styles.textDark) : null
     props.style ? [containerStyles.push(props.style)] : null
     props.textStyle ? textStyles.push(props.textStyle) : null
+    props.containerStyle ? containerStyles.push(props.containerStyle) : null
 
-    console.log(props.icon)
     const renderLabel = () => {
         if (props.label) {
             return (
@@ -24,10 +24,10 @@ const Input = (props) => {
     }
 
     if (props.icon && props.icon !== "undefined" ) {
-        console.log(props.icon)
         return (
-            <Block row style={[containerStyles, { padding: 0, justifyContent: "space-between" }]}>
-                <TextInput style={{ padding: 15, width: "100%" }} {...props} />
+            <Block row style={[containerStyles, { padding: 0, justifyContent: "space-between", ...props.style}]}>
+                {renderLabel()}
+                <TextInput style={{ padding: 15,}} {...props} />
                 <TouchableOpacity onPress={props.onIconPress}>
                     <Icon name={props.icon} size={28} color={theme.colors.mid} style={{ paddingRight: 5 }} />
                 </TouchableOpacity>
@@ -37,9 +37,9 @@ const Input = (props) => {
 
 
     return (
-        <Block style={{paddingVertical: 10}}>
+        <Block style={{paddingVertical: 10, ...props.style}}>
             {renderLabel()}
-            <TextInput style={containerStyles} {...props} />
+            <TextInput style={[containerStyles]} {...props} />
         </Block>
     )
 }
@@ -50,12 +50,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 13,
         marginVertical: 5,
-        width: "100%",
+        // width: "100%",
         borderRadius: 5,
         color: theme.colors.dark,
         borderWidth: 1,
         borderColor: theme.colors.light,
-        fontFamily: theme.font.light
+        fontFamily: theme.font.light,
+        backgroundColor: theme.colors.white
     },
     bordered: {
         borderWidth: 1,

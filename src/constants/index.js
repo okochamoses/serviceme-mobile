@@ -10,8 +10,8 @@ const colors = {
 const sizes = {
     basePadding: 25,
     xs: 8,
-    sm: 12,
-    md: 16,
+    sm: 13,
+    md: 15,
     lg: 20,
     xl: 24,
     h: 28

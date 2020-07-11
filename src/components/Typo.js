@@ -29,7 +29,7 @@ const Typo = (props) => {
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: 16,
+        fontSize: theme.sizes.md,
         fontFamily: theme.font.regular,
         color: theme.colors.dark,
     },

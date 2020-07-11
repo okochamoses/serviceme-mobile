@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import theme from "../constants"
 import Container from '../components/Container';
@@ -21,7 +21,8 @@ const Auth = ({ navigation }) => {
             </Block>
             <Block style={{ paddingBottom: 40 }}>
                 <Button onPress={() => navigation.navigate("Login")}>Login</Button>
-                <Button bordered onPress={() => navigation.navigate("Register")}>Sign Up</Button>
+                <Button onPress={() => navigation.navigate("Register")}>Sign Up</Button>
+                <Button bordered onPress={() => navigation.navigate("Register")}>Remind Me Later</Button>
             </Block>
         </Container>
     )

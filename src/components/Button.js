@@ -11,8 +11,6 @@ const Button = (props) => {
     props.bordered? textStyles.push(styles.textDark) : null
     props.style? [containerStyles.push(props.style)] : null
     props.textStyle? textStyles.push(props.textStyle) : null
-    // props.style? props.style] : null
-    console.log(containerStyles)
     return (
         <TouchableOpacity style={containerStyles} {...props}>
             <Typo size="md" style={textStyles}>{props.children}</Typo>
