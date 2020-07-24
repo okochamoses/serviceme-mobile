@@ -15,10 +15,11 @@ const Theme = {
 };
 
 const Nav = () => {
-  const isLoading = useSelector(state => state.init.isLoading);
+    const isLoading = useSelector(state => state.init.isLoading);
+    const isAuthenticated = useSelector(state => state.init.isAuthenticated);
 
   const renderNavigator = () => {
-    switch ('user') {
+    switch (isAuthenticated) {
       case 'auth':
         return <AuthNavigator />;
       case 'user':

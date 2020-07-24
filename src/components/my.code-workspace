@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../../plain/izanet"
+		},
+		{
+			"path": "../../../../node/serviceme_v2"
+		},
+		{
+			"path": "../../../../react/coinmart-react"
+		},
+		{
+			"name": "SSH FS - coinmart.com.ng",
+			"uri": "ssh://coinmart.com.ng/"
+		}
+	],
+	"settings": {
+		"liveServer.settings.port": 5501,
+		"liveServer.settings.multiRootWorkspaceName": "izanet"
+	}
+}

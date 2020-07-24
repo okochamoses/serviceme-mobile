@@ -7,17 +7,23 @@ import Typo from './Typo';
 import theme from '../constants';
 import Button from './Button';
 import { AuthContext } from '../contexts/AuthContext';
+import action from "../redux/InitActions"
+import { useDispatch, useSelector } from 'react-redux';
 
-const Modal = ({message, type}) => {
-  const [errorModal, setErrorModal] = useState(false);
-  const {isAuthenticated, toggleIsAuthenticated} = useContext(AuthContext)
+const Modal = ({message, type, open, close}) => {
+  const isError = open === undefined ? useSelector(state => state.init.isError) : open
+  const dispatch = useDispatch();
+  
+  const toggleError = () => {
+    return open === undefined ? dispatch(action.toggleError()) : close()
+  }
   switch (type) {
     case 'error':
       return (
         <RNModal
           animationType="slide"
-          isVisible={isAuthenticated}
-          onBackdropPress={() => toggleIsAuthenticated()}
+          isVisible={isError}
+          onBackdropPress={() => toggleError()}
           hasBackdrop={true}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
@@ -32,7 +38,7 @@ const Modal = ({message, type}) => {
                   weight="l">
                   {message}
                 </Typo>
-                <Button onPress={() => toggleIsAuthenticated()}>Close</Button>
+                <Button onPress={() => toggleError()}>Close</Button>
               </Block>
             </View>
           </View>
@@ -43,7 +49,7 @@ const Modal = ({message, type}) => {
       return (
         <RNModal
           animationType="slide"
-          isVisible={errorModal}
+          isVisible={isError}
           onBackdropPress={() => setErrorModal(false)}
           hasBackdrop={true}>
           <View style={styles.centeredView}>
@@ -67,7 +73,7 @@ const Modal = ({message, type}) => {
       return (
         <RNModal
           animationType="slide"
-          isVisible={errorModal}
+          isVisible={isError}
           onBackdropPress={() => setErrorModal(false)}
           hasBackdrop={true}>
           <View style={styles.centeredView}>

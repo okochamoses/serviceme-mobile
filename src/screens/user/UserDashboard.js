@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Dimensions, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {Dimensions, Image, TouchableOpacity, StyleSheet, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import Typo from '../../components/Typo';
 import Container from '../../components/Container';
@@ -7,38 +7,35 @@ import Block from '../../components/Block';
 import theme from '../../constants';
 import Input from '../../components/Input';
 import action from '../../redux/InitActions';
+import storage from '../../utils/storage';
+import ProviderCard from '../../components/ProviderCard';
+import Modal from '../../components/Modal';
+import Line from '../../components/Line';
 
 const {height, width} = Dimensions.get('screen');
-import {getCategories} from '../../services/authentication';
-import Modal from '../../components/Modal';
+const img = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS9bBO-hib7wq7ZH2D_c29li8Ew1j9CmVU63w&usqp=CAU"
 
 const UserDashboard = ({navigation}) => {
   const [categories, setCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
+  const toggleIsLoading = () => dispatch(action.toggleLoading());
+  const toggleError = () => dispatch(action.toggleError());
 
   const _getCategories = async () => {
-    dispath(action.toggleLoading());
-    const response = await getCategories();
-    if (response.status === 0) {
-      setCategories(response.data);
-    } else {
-      // toggleIsLoading();
-      setErrorMessage(response.description);
-      // toggleIsAuthenticated();
-    }
-    // toggleIsLoading();
+    setCategories(await storage.getCategories());
   };
+
   useEffect(() => {
-    async function loadCategories() {
+    const loadCategories = async () => {
       await _getCategories();
-    }
+    };
     loadCategories();
-    console.log(categories);
   }, []);
+
   return (
     <Container full style={{width, flexShrink: 1}}>
-      <Modal type="error" message={errorMessage} show={true} />
+      <Modal type="error" message={errorMessage} />
       <Block
         row
         center
@@ -56,11 +53,10 @@ const UserDashboard = ({navigation}) => {
         </Block>
       </Block>
       <Block row style={{width, flexWrap: 'wrap'}}>
-        {categories.map(category => (
+        {categories.map((category, idx) => (
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('Categories', {id: category._id})
-            }>
+            key={idx}
+            onPress={() => navigation.navigate('Search', {screen: "Search", params: {categoryId: category._id}})}>
             <Block center style={styles.categoryBlock}>
               <Image
                 source={{uri: category.image}}
@@ -73,6 +69,23 @@ const UserDashboard = ({navigation}) => {
             </Block>
           </TouchableOpacity>
         ))}
+        <View style={{width: "100%", alignItems: "flex-end",}}>
+          <TouchableOpacity onPress={() => navigation.navigate("Categories")}>
+        <Typo color="primary" style={{padding: 10}}>...see more</Typo>
+        </TouchableOpacity>
+        </View>
+      </Block>
+      <Block style={{paddingTop: 20}}>
+        <Typo weight="s" style={{paddingLeft: 20, paddingBottom: 10}}>Top Rated Providers</Typo>
+        <ProviderCard category="Makeup Artiste" image={img} providerRating="4.0" providerLga="Agege" providerName="Test Provider" providerState="Lagos" />
+        <Line margin={1} />
+        <ProviderCard category="Makeup Artiste" image={img} providerRating="4.0" providerLga="Agege" providerName="Test Provider" providerState="Lagos" />
+        <Line margin={1} />
+        <ProviderCard category="Makeup Artiste" image={img} providerRating="4.0" providerLga="Agege" providerName="Test Provider" providerState="Lagos" />
+        <Line margin={1} />
+        <ProviderCard category="Makeup Artiste" image={img} providerRating="4.0" providerLga="Agege" providerName="Test Provider" providerState="Lagos" />
+        <Line margin={1} />
+        <ProviderCard category="Makeup Artiste" image={img} providerRating="4.0" providerLga="Agege" providerName="Test Provider" providerState="Lagos" />
       </Block>
     </Container>
   );

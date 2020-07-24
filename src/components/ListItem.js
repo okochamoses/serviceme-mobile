@@ -5,12 +5,12 @@ import Block from './Block';
 import Typo from "./Typo";
 import theme from "../constants"
 
-const ListItem = ({ title, subtitle, onPress }) => (
+const ListItem = ({ title, subtitle, onPress, titleSize }) => (
     <TouchableOpacity style={{width: "100%"}} onPress={onPress}>
         <Block row style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.mid, justifyContent: "space-between", alignItems: "center", paddingHorizontal: 10 }}>
             <View style={{ paddingVertical: 15 }}>
                 <Typo weight="l">{title}</Typo>
-                <Typo size="sm" weight="l" color="mid">{subtitle}</Typo>
+                {subtitle ? <Typo size="sm" weight="l" color="mid">{subtitle}</Typo> : null}
             </View>
             <View>
                 <Icon name="chevron-right" size={24} color={theme.colors.mid}/>

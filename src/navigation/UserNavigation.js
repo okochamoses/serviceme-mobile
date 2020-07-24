@@ -15,6 +15,7 @@ import AuthContextProvider, { AuthContext } from "../contexts/AuthContext";
 import Loading from "../components/Loading";
 import { useSelector } from "react-redux";
 import headerProps from "./headerProps"
+import DrawerContent from "./drawerContent";
 
 const User = createDrawerNavigator();
 
@@ -65,7 +66,7 @@ const MessagesNavigator = () => (
 const ProviderProfileStack = createStackNavigator();
 const ProviderProfileNavigator = () => (
     <ProviderProfileStack.Navigator>
-        <ProviderProfileStack.Screen options={({ navigation }) => headerProps("menu", () => navigation.openDrawer())} name="ProviderProfile" component={ProviderProfile} />
+        <ProviderProfileStack.Screen options={({ navigation }) => headerProps("chevron-left", () => navigation.goBack())} name="ProviderProfileScreen" component={ProviderProfile} />
     </ProviderProfileStack.Navigator>
 )
 
@@ -78,17 +79,16 @@ const NotificationsNavigator = () => (
 
 const UserStack = () => {
     const isLoading = useSelector(state => state.isLoading)
-    console.log("MMM", isLoading)
     return(
         <>
-    <User.Navigator>
+    <User.Navigator drawerContent={props => <DrawerContent {...props} />}>
         <User.Screen name="Dashboard" component={DashboardNavigator} />
         <User.Screen name="Categories" component={CategoriesNavigator} />
         <User.Screen name="Search" component={SearchNavigator} />
         <User.Screen name="Share" component={ShareNavigator} />
         <User.Screen name="Settings" component={SettingsNavigator} />
         <User.Screen name="Messages" component={MessagesNavigator} />
-        <User.Screen name="ProviderProfile" component={ProviderProfileNavigator} />
+        <User.Screen name="Provider Profile" component={ProviderProfileNavigator} />
         <User.Screen name="Notifications" component={NotificationsNavigator} />
         <User.Screen name="Logout" component={SearchNavigator} />
     </User.Navigator>

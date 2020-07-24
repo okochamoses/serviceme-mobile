@@ -3,6 +3,9 @@ import AsyncStorage from "@react-native-community/async-storage"
 import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 
+// const baseURL = "http://localhost:3000/api/v2"; // DEV
+const baseURL = "https://servicemeng.herokuapp.com/api/v2"; // TEST
+
 const getToken = async () => {
     try {
         const value = await AsyncStorage.getItem("token")
@@ -15,17 +18,17 @@ const getToken = async () => {
     }
 }
 
-const instance = axios.create({
-    baseURL: 'http://localhost:3000/api/v2/',
-    timeout: 30000,
-    headers: {
-        'Content-Type': "application/json"
-    }
-});
-
 const post = async (url, body) => {
+    const keys = Object.keys(body);
+    keys.forEach(key => {
+        const val = body[key];
+        if(val === undefined || val === null || val === "") {
+            delete body[key];
+        }
+    })
+    console.log(body)
     try {
-        const response = await axios.post('http://localhost:3000/api/v2' + url, { ...body }, {
+        const response = await axios.post(baseURL + url, { ...body }, {
             headers: {
                 'Content-Type': "application/json",
                 "Authorization": await getToken()
@@ -33,13 +36,14 @@ const post = async (url, body) => {
         })
         return response.data;
     } catch (error) {
+        console.log(error)
         return { status: 10, description: "There was an error connecting to the server" }
     }
 }
 
 const get = async (url) => {
     try {
-        const response = await axios.get('http://localhost:3000/api/v2' + url, {
+        const response = await axios.get(baseURL + url, {
             headers: {
                 'Content-Type': "application/json",
                 "Authorization": await getToken()
@@ -52,9 +56,20 @@ const get = async (url) => {
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export const login = async (email, password) => {
     try {
         return await post("/auth/provider/login", { email, password });
+    } catch (error) {
+        return { status: 10, description: "There was an error connecting to the server" }
+    }
+}
+
+export const register = async (firstName, lastName, email, phone, password, isProvider, subscribe) => {
+    try {
+        return await post("/auth/provider/register", { firstName, lastName, email, phone, password, isProvider, subscribe });
     } catch (error) {
         return { status: 10, description: "There was an error connecting to the server" }
     }
@@ -78,3 +93,27 @@ export const getCategories = async () => {
     }
 }
 
+export const searchBusinesses = async (categoryId, stateCode, lga) => {
+    try {
+        return await post("/businesses/search", {categoryId, stateCode, lga})
+    } catch (error) {
+        console.log(error)
+        return { status: 10, description: "There was an error connecting to the server" }
+    }
+}
+
+export const addBusiness = async(businessName, streetAddress, state, lga, landmark, providerId, categoryId, email, phone) => {
+    try {
+        return await post("/providers/business", {businessName, streetAddress, state, lga, landmark, providerId, categoryId, email, phone})
+    } catch (error) {
+        return { status: 10, description: "There was an error connecting to the servers boy" }
+    }
+}
+
+export const addBusinessImage = async(businessId, image) => {
+    try {
+        return await post(`/providers/business/${businessId}/images`, {image})
+    } catch (error) {
+        return { status: 10, description: "There was an error connecting to the servers boy" }
+    }
+}
