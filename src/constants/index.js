@@ -1,8 +1,9 @@
 import {Dimensions} from "react-native"
 const colors = {
-    primary: "#EB5757",
+    primary: "#F94546",
     white: "#ffffff",
     yellow: "#F2C94C",
+    blue: "#2F80ED",
     dark: "#333333",
     light: "#EFEFEF",
     mid: "#999999",

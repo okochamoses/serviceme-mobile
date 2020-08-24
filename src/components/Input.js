@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
   TextInput,
   TouchableOpacity,
@@ -49,7 +47,7 @@ const Input = props => {
             containerStyles,
             {padding: 0, justifyContent: 'space-between', ...props.style},
           ]}>
-          <TextInput autoCorrect={false} style={{padding: 15}} {...props} />
+          <TextInput autoCorrect={false} style={[{padding: 15},]} {...props} />
           <TouchableOpacity onPress={props.onIconPress}>
             <Icon
               name={props.icon}
@@ -66,7 +64,7 @@ const Input = props => {
   return (
     <Block style={{paddingVertical: 10, ...props.style}}>
       {renderLabel()}
-      <TextInput autoCorrect={false} style={[containerStyles, ]} {...props} />
+      <TextInput autoCorrect={false} style={[containerStyles, ...textStyles]} {...props} />
     </Block>
   );
 };
@@ -84,6 +82,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.light,
     fontFamily: theme.font.light,
     backgroundColor: theme.colors.white,
+    // textAlignVertical: 'top'
   },
   bordered: {
     borderWidth: 1,
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.white,
   },
   text: {
-    color: theme.colors.white,
+    color: theme.colors.dark,
   },
   textDark: {
     color: theme.colors.primary,

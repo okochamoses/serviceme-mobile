@@ -50,7 +50,7 @@ const Modal = ({message, type, open, close}) => {
         <RNModal
           animationType="slide"
           isVisible={isError}
-          onBackdropPress={() => setErrorModal(false)}
+          onBackdropPress={() => toggleError()}
           hasBackdrop={true}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
@@ -61,7 +61,7 @@ const Modal = ({message, type, open, close}) => {
                   weight="l">
                   {message}
                 </Typo>
-                <Button bordered onPress={() => setErrorModal(false)}>
+                <Button bordered onPress={() => toggleError()}>
                   Close
                 </Button>
               </Block>
@@ -74,7 +74,7 @@ const Modal = ({message, type, open, close}) => {
         <RNModal
           animationType="slide"
           isVisible={isError}
-          onBackdropPress={() => setErrorModal(false)}
+          onBackdropPress={() => toggleError()}
           hasBackdrop={true}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
@@ -84,7 +84,7 @@ const Modal = ({message, type, open, close}) => {
                   weight="l">
                   {message}
                 </Typo>
-                <Button bordered onPress={() => setErrorModal(false)}>
+                <Button bordered onPress={() => toggleError()}>
                   Close
                 </Button>
               </Block>

@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {View, StyleSheet, Image, Switch, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, Image, Switch, ActivityIndicator, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Modal from 'react-native-modal';
 import TouchID from 'react-native-touch-id';
@@ -31,7 +31,7 @@ const Login = ({navigation}) => {
   };
 
   const [email, setEmail] = useState('dev.mosesokocha@gmail.com');
-  const [password, setPassword] = useState('Password12$');
+  const [password, setPassword] = useState('Password123$');
   const [rememberMe, setRememberMe] = useState(false);
   const [fingerprintModal, setFingerprintModal] = useState(false);
   const [fingerprintIcon, setFingerprintIcon] = useState(undefined);
@@ -118,7 +118,7 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <Container noScroll style={{flex: 1, justifyContent: 'space-between'}}>
+    <Container style={{height: Dimensions.get("window").height - 130}}>
       {/* Fingerprint Modal */}
       <Modal
         animationType="slide"
@@ -174,6 +174,7 @@ const Login = ({navigation}) => {
         </View>
       </Modal>
 
+<Block style={{flex: 1, justifyContent: 'space-between'}}>
       <Block center vCenter style={{paddingTop: '1%'}}>
         <Image
           resizeMode="contain"
@@ -224,6 +225,7 @@ const Login = ({navigation}) => {
         <Typo weight="l" color="primary">
           Reset here
         </Typo>
+      </Block>
       </Block>
     </Container>
   );

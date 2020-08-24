@@ -73,7 +73,11 @@ const ProviderDashboard = ({ navigation, route }) => {
                             {profile.businesses === undefined ?
                                 null :
                                 profile.businesses.map(business => (
-                                    <ListItem key={business._id} title={business.businessName} subtitle={"Category: " + business.category.name} />
+                                    <ListItem onPress={
+                                        () => navigation.navigate("Businesses", {screen: "Profile", params: {businessId: business._id, profile}})} 
+                                        key={business._id} title={business.businessName} 
+                                        subtitle={"Category: " + business.category.name} 
+                                    />
                                 ))}
                         </Block>
                     </Block>

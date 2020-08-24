@@ -75,6 +75,14 @@ export const register = async (firstName, lastName, email, phone, password, isPr
     }
 }
 
+export const changePassword = async (oldPassword, newPassword) => {
+    try {
+        return await post("/auth/provider/change-password", { oldPassword, newPassword });
+    } catch (error) {
+        return { status: 10, description: "There was an error connecting to the server" }
+    }
+}
+
 export const getProfile = async () => {
     try {
         return await get("/providers/profile")
@@ -110,9 +118,25 @@ export const addBusiness = async(businessName, streetAddress, state, lga, landma
     }
 }
 
+export const updateBusiness = async(businessId, business) => {
+    try {
+        return await post(`/providers/business/${businessId}`, {...business})
+    } catch (error) {
+        return { status: 10, description: "There was an error connecting to the servers boy" }
+    }
+}
+
 export const addBusinessImage = async(businessId, image) => {
     try {
         return await post(`/providers/business/${businessId}/images`, {image})
+    } catch (error) {
+        return { status: 10, description: "There was an error connecting to the servers boy" }
+    }
+}
+
+export const addVisitor = async(ip, businessId, customerId, longitude, latitude, deviceId) => {
+    try {
+        return await post(`/visitors`, {ip, businessId, customerId, longitude, latitude, deviceId})
     } catch (error) {
         return { status: 10, description: "There was an error connecting to the servers boy" }
     }

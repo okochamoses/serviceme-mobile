@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 
 const INITIAL_STATE = {
   isAuthenticated: 'auth',
+  isLoggedIn: false,
   isLoading: false,
   isError: false,
 };

@@ -54,7 +54,8 @@ const ProviderCard = ({providerName, providerRating, providerLga, providerState,
               backgroundColor: theme.colors.light,
               padding: 3,
               paddingHorizontal: 20,
-              borderRadius: 40,
+              borderRadius: 12.5,
+              height: 25
             }}>
             <Typo size="sm" weight="l">
               {`${providerLga}, ${providerState}`}

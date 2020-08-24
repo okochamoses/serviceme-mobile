@@ -8,9 +8,9 @@ import Line from './Line';
 import headerProps from '../navigation/headerProps';
 const {width, height} = Dimensions.get('window');
 
-const InfoCard = ({title, link, body, children, style}) => (
+const InfoCard = ({title, link, body, children, noPadding, style}) => (
   <Block center style={styles.infoCard}>
-    <Block row center spaceBetween style={{paddingHorizontal: 20}}>
+    <Block row center spaceBetween style={{paddingHorizontal: noPadding ? 0 : 20}}>
       <Typo weight="s">{title}</Typo>
       <TouchableOpacity>
         <Typo size="sm" color="primary">
@@ -20,7 +20,7 @@ const InfoCard = ({title, link, body, children, style}) => (
     </Block>
     <Line />
     {body ? (
-      <Block row center spaceBetween style={{paddingHorizontal: 20}}>
+      <Block row center spaceBetween style={{paddingHorizontal: noPadding ? 0 : 20}}>
         <Typo weight="l" style={{width: '100%'}}>
           {body}
         </Typo>

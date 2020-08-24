@@ -11,14 +11,12 @@ import InitActions from '../redux/InitActions';
 import {useDispatch, useSelector} from 'react-redux';
 import storage from '../utils/storage';
 
-const DrawerContent = props => {
+const ProviderDrawerContent = props => {
   const dispatch = useDispatch();
   const [profile, setProfile] = useState({});
 
   const isLoggedIn = useSelector(({init}) => init.isLoggedIn);
   const currentScreen = useSelector(({init}) => init.isAuthenticated);
-
-  console.log(isLoggedIn, currentScreen);
 
   const _getCategories = async () => {
     setProfile(await storage.getProfile());
@@ -90,7 +88,7 @@ const DrawerContent = props => {
             />
           </Block>
         </View>
-{console.log(profile)}
+        {console.log(profile)}
         <Line />
 
         <View>
@@ -105,41 +103,25 @@ const DrawerContent = props => {
             icon={() => (
               <Icon name="buffer" size={18} color={theme.colors.primary} />
             )}
-            label="Categories"
-            onPress={() => props.navigation.navigate('Categories')}
-          />
-          <DrawerItem
-            activeTintColor={theme.colors.primary}
-            icon={() => (
-              <Icon name="magnify" size={18} color={theme.colors.primary} />
-            )}
-            label="Search"
-            onPress={() => props.navigation.navigate('Search')}
+            label="Businesses"
+            onPress={() => props.navigation.navigate('Businesses')}
           />
           <DrawerItem
             icon={() => (
-              <Icon
-                name="share-variant"
-                size={18}
-                color={theme.colors.primary}
-              />
+              <Icon name="chart-donut" size={18} color={theme.colors.primary} />
             )}
-            label="Share"
-            onPress={onShare}
+            label="Analytics"
+            onPress={() => props.navigation.navigate('Analytics')}
           />
           <DrawerItem
             icon={() => (
-              <Icon
-                name="bell-outline"
-                size={18}
-                color={theme.colors.primary}
-              />
+              <Icon name="credit-card" size={18} color={theme.colors.primary} />
             )}
-            label="Notifications"
-            onPress={() => props.navigation.navigate('Notifications')}
+            label="Subscriptions"
+            onPress={() => props.navigation.navigate('Subscriptions')}
           />
+          <Line />
         </View>
-        <Line />
         <View>
           <DrawerItem
             icon={() => (
@@ -162,22 +144,9 @@ const DrawerContent = props => {
                 <Icon name="at" size={18} color={theme.colors.primary} />
               )}
               label="Sign In / Register"
-              onPress={() =>  dispatch(InitActions.navigateToAuth())}
+              onPress={() => dispatch(InitActions.navigateToAuth())}
             />
           )}
-          {/* {profile !== null ? (
-              <DrawerItem
-                icon={() => (
-                  <Icon
-                    name="logout"
-                    size={18}
-                    color={theme.colors.primary}
-                  />
-                )}
-                label="Logout"
-                onPress={() => logoutAlert()}
-              />
-            ) : null} */}
         </View>
       </DrawerContentScrollView>
 
@@ -196,14 +165,14 @@ const DrawerContent = props => {
               }}
               ios_backgroundColor={theme.colors.primary}
               onValueChange={
-                () => dispatch(InitActions.navigateToProvider())
+                () => dispatch(InitActions.navigateToUser())
                 // this.setState({
                 //   registerAsProvider: !this.state.registerAsProvider,
                 // })
               }
               //   value={this.state.registerAsProvider}
             />
-            <Typo>Switch to provider dashboard</Typo>
+            <Typo>Switch to user dashboard</Typo>
           </>
         ) : null}
       </Block>
@@ -211,4 +180,4 @@ const DrawerContent = props => {
   );
 };
 
-export default DrawerContent;
+export default ProviderDrawerContent;

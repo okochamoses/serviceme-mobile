@@ -10,4 +10,13 @@ const getCategories = async() => {
     }
 }
 
-export default { getCategories}
+const getProfile = async() => {
+    const profile = await AsyncStorage.getItem("profile");
+    if(profile === null)  {
+        return null;
+    } else {
+        return JSON.parse(profile);
+    }
+}
+
+export default { getCategories, getProfile }

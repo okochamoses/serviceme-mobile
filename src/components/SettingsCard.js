@@ -5,9 +5,9 @@ import Block from './Block';
 import Typo from "./Typo";
 import theme from "../constants"
 
-const ListItem = ({ title, subtitle, onPress, titleSize }) => (
+const SettingsCard = ({ title, subtitle, onPress, titleSize }) => (
     <TouchableOpacity style={{width: "100%"}} onPress={onPress}>
-        <Block row style={{ borderBottomWidth: 1, borderColor: theme.colors.light, justifyContent: "space-between", alignItems: "center", paddingHorizontal: 10 }}>
+        <Block row style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderColor: theme.colors.mid, justifyContent: "space-between", alignItems: "center", paddingHorizontal: 10 }}>
             <View style={{ paddingVertical: 15 }}>
                 <Typo weight="l">{title}</Typo>
                 {subtitle ? <Typo size="sm" weight="l" color="mid">{subtitle}</Typo> : null}
@@ -19,4 +19,4 @@ const ListItem = ({ title, subtitle, onPress, titleSize }) => (
     </TouchableOpacity>
 )
 
-export default ListItem;
+export default SettingsCard;

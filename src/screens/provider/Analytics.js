@@ -7,7 +7,7 @@ import ListItem from '../../components/ListItem';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
-const Businesses = ({navigation, route}) => {
+const Analytics = ({navigation, route}) => {
     const [businesses, setBusinesses] = useState([]);
     const [profile, setProfile] = useState({});
     const _getBusinesses = async () => {
@@ -19,7 +19,6 @@ const Businesses = ({navigation, route}) => {
         async function loadProfile() {
             await _getBusinesses()
         }
-        console.log(route)
         loadProfile()
     }, [])
 
@@ -30,9 +29,7 @@ const Businesses = ({navigation, route}) => {
             <ScrollView>
                 <Container style={{paddingTop: -20}}>
                     {
-                        businesses.map((business) => {
-                        return <ListItem onPress={() => navigation.navigate("Profile", {businessId: "5ed95f97cacf8e6929f7cf9a", profile})} 
-                        key={business._id} title={business.businessName} subtitle={"Category: " + business._id} />})
+                        businesses.map((business) => <ListItem onPress={() => navigation.navigate("Profile", {businessId: business._id, profile})} key={business._id} title={business.businessName} subtitle={"Category: " + business.category.name} />)
                     }
                 </Container>
             </ScrollView>
@@ -40,4 +37,4 @@ const Businesses = ({navigation, route}) => {
     )
 }
 
-export default Businesses;
+export default Analytics;

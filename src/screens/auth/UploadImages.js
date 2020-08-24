@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Text,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 
@@ -16,20 +17,15 @@ import theme from '../../constants';
 import Container from '../../components/Container';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import {addBusiness} from '../../services/authentication';
+import {addBusinessImage, updateBusiness} from '../../services/authentication';
 import Typo from '../../components/Typo';
 import Line from '../../components/Line';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const UploadImages = () => {
-  const [businessEmail, setBusinessEmail] = useState('');
-  const [businessType, setBusinessType] = useState('');
-  const [phone, setphone] = useState('');
-  const [streetAddress, setstreetAddress] = useState('');
-  const [businessState, setbusinessState] = useState('');
-  const [lga, setlga] = useState('');
-  const [image, setImage] = useState('');
+const UploadImages = ({navigation, route}) => {
+  const [description, setDescription] = useState('');
   const [images, setImages] = useState([]);
+  const [image, setImage] = useState([]);
 
   const addImageToArray = img => {
     setImages([...images, img]);
@@ -37,18 +33,39 @@ const UploadImages = () => {
 
   const uploadImage = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
+      // width: 1200,
+      // height: 800,
       cropping: true,
       includeBase64: true,
       compressImageQuality: 0.8,
       freeStyleCropEnabled: true,
-    }).then(image => {
-      setImage(image.data);
-      addImageToArray(image.data);
+    }).then(async image => {
+      setImage(`data:${image.mime};base64,${image.data}`);
+      addImageToArray(`data:${image.mime};base64,${image.data}`);
+      // call add image endpoint
+      const res = await addBusinessImage(route.params.businessId, `data:${image.mime};base64,${image.data}`)
+      console.log("|")
+      console.log("|")
+      console.log("RESPONSE: ", res)
+      console.log("|")
+      console.log("|")
       console.log(image.data);
     });
   };
+
+  // TODO: TEST THIS
+  const completeRegistration = async() => {
+    if(description == undefined || description === '') {
+      // FAILED 
+      // TODO: Display modal to show description is required
+      return
+    }
+    const response = await updateBusiness(route.params.businessId, {description});
+
+    if(response.status === 0) {
+      navigation.navigate("Registration Complete")
+    }
+  }
   return (
     <Container>
       <Typo weight="s" size="m" style={{width: '100%'}}>
@@ -84,11 +101,12 @@ const UploadImages = () => {
                 marginRight: 20,
                 width: 150,
                 height: 150,
-                resizeMode: 'contain',
+                resizeMode: "contain",
                 borderWidth: 1,
                 borderColor: theme.colors.light,
+                backgroundColor: theme.colors.dark
               }}
-              source={{uri: `data:image/gif;base64,${img}`}}
+              source={{uri: img}}
             />
           ))}
         </ScrollView>
@@ -114,11 +132,14 @@ const UploadImages = () => {
       </Typo>
 
       <Input
+      // bordered
+        onChangeText={text => setDescription(text)}
         multiline={true}
         numberOfLines={10}
+        placeholder="Enter a description"
       />
 
-      <Button onPress={() => uploadImage()}>Proceed to Images</Button>
+      <Button onPress={() => completeRegistration()}>Proceed to Images</Button>
     </Container>
   );
 };

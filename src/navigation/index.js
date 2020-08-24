@@ -1,6 +1,6 @@
 import React from 'react';
 import UserNavigation from './UserNavigation';
-import DashboardNavigation from './DashboardStack';
+import DashboardNavigation from './DashboardNavigator';
 import AuthNavigator from './AuthNavigator';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {useSelector} from 'react-redux';

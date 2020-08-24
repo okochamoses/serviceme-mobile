@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import Container from '../../components/Container';
 import Block from '../../components/Block';
 import DropDown from '../../components/DropDown';
@@ -28,27 +29,38 @@ const Search = ({navigation, route}) => {
   const dispatch = useDispatch();
   const toggleIsLoading = () => dispatch(InitActions.toggleLoading());
 
-  useEffect(() => {
-    async function load() {
-      const cate = await storage.getCategories();
-      const list = [];
-      cate.forEach(category => {
-        list.push({label: category.name, key: category._id});
-      });
-      const st = [];
-      locations.forEach(location => {
-        st.push({label: location.name, key: location.code});
-      });
-      setStates(st);
-      setCategoryItemList(list);
-      setSelectedCategory(
-        route.params.categoryId !== undefined
-          ? () => onChangeCategoryItem(route.params.categoryId)
-          : '',
-      );
-    }
-    load();
-  }, [route]);
+  async function load() {
+    const cate = await storage.getCategories();
+    const list = [];
+    cate.forEach(category => {
+      list.push({label: category.name, key: category._id});
+    });
+    const st = [];
+    locations.forEach(location => {
+      st.push({label: location.name, key: location.code});
+    });
+    setStates(st);
+    setCategoryItemList(list);
+    setSelectedCategory(
+      route.params.categoryId !== undefined
+        ? () => onChangeCategoryItem(route.params.categoryId)
+        : '',
+    );
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      load();
+      return () => {
+        setSelectedCategory('');
+        setSelectedState('');
+        setSelectedLga('');
+        setBusinesses([])
+      };
+
+    }, []),
+    [route, navigation],
+  );
 
   const onChangeCategoryItem = async item => {
     setSelectedCategory(item);
@@ -123,7 +135,7 @@ const Search = ({navigation, route}) => {
           providerState={business.state}
           onPress={() => {
             navigation.navigate('Provider Profile', {
-              screen: 'ProviderProfileScreen',
+              screen: 'Provider',
               params: {business},
             });
           }}

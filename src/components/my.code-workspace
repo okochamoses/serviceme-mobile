@@ -13,8 +13,13 @@
 			"path": "../../../../react/coinmart-react"
 		},
 		{
-			"name": "SSH FS - coinmart.com.ng",
-			"uri": "ssh://coinmart.com.ng/"
+			"path": "../../../../plain/boot"
+		},
+		{
+			"path": "../../../../node/predsell"
+		},
+		{
+			"path": "../../../../react/predsell_react"
 		}
 	],
 	"settings": {

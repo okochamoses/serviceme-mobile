@@ -7,15 +7,13 @@ import Settings from "../screens/user/Settings";
 import Messages from "../screens/user/Messages";
 import ProviderProfile from "../screens/user/ProviderProfile";
 import Notifications from "../screens/user/Notifications";
-import theme from "../constants"
 import { createStackNavigator } from "@react-navigation/stack";
-import { TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import AuthContextProvider, { AuthContext } from "../contexts/AuthContext";
 import Loading from "../components/Loading";
 import { useSelector } from "react-redux";
 import headerProps from "./headerProps"
 import DrawerContent from "./drawerContent";
+import ChangePassword from "../screens/user/ChangePassword";
+import SendFeedback from "../screens/user/SendFeedback";
 
 const User = createDrawerNavigator();
 
@@ -52,6 +50,8 @@ const SettingsStack = createStackNavigator();
 const SettingsNavigator = () => (
     <SettingsStack.Navigator>
         <SettingsStack.Screen options={({ navigation }) => headerProps("menu", () => navigation.openDrawer())} name="Settings" component={Settings} />
+        <SettingsStack.Screen options={({ navigation }) => headerProps("chevron-left", () => navigation.goBack())} name="Change Password" component={ChangePassword} />
+        <SettingsStack.Screen options={({ navigation }) => headerProps("chevron-left", () => navigation.goBack())} name="Send Feedback" component={SendFeedback} />
     </SettingsStack.Navigator>
 )
 
@@ -66,7 +66,7 @@ const MessagesNavigator = () => (
 const ProviderProfileStack = createStackNavigator();
 const ProviderProfileNavigator = () => (
     <ProviderProfileStack.Navigator>
-        <ProviderProfileStack.Screen options={({ navigation }) => headerProps("chevron-left", () => navigation.goBack())} name="ProviderProfileScreen" component={ProviderProfile} />
+        <ProviderProfileStack.Screen options={({ navigation }) => headerProps("chevron-left", () => navigation.goBack())} name="Provider" component={ProviderProfile} />
     </ProviderProfileStack.Navigator>
 )
 
