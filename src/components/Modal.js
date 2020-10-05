@@ -6,17 +6,18 @@ import Block from './Block';
 import Typo from './Typo';
 import theme from '../constants';
 import Button from './Button';
-import { AuthContext } from '../contexts/AuthContext';
-import action from "../redux/InitActions"
-import { useDispatch, useSelector } from 'react-redux';
+import {AuthContext} from '../contexts/AuthContext';
+import action from '../redux/InitActions';
+import {useDispatch, useSelector} from 'react-redux';
 
-const Modal = ({message, type, open, close}) => {
-  const isError = open === undefined ? useSelector(state => state.init.isError) : open
+const Modal = ({message, type, open, close, children, style, closeText}) => {
+  const isError =
+    open === undefined ? useSelector(state => state.init.isError) : open;
   const dispatch = useDispatch();
-  
+
   const toggleError = () => {
-    return open === undefined ? dispatch(action.toggleError()) : close()
-  }
+    return open === undefined ? dispatch(action.toggleError()) : close();
+  };
   switch (type) {
     case 'error':
       return (
@@ -38,7 +39,9 @@ const Modal = ({message, type, open, close}) => {
                   weight="l">
                   {message}
                 </Typo>
-                <Button onPress={() => toggleError()}>Close</Button>
+                <Button onPress={() => toggleError()}>
+                  {closeText ? closeText : 'Close'}
+                </Button>
               </Block>
             </View>
           </View>
@@ -62,7 +65,7 @@ const Modal = ({message, type, open, close}) => {
                   {message}
                 </Typo>
                 <Button bordered onPress={() => toggleError()}>
-                  Close
+                  {closeText ? closeText : 'Close'}
                 </Button>
               </Block>
             </View>
@@ -77,15 +80,19 @@ const Modal = ({message, type, open, close}) => {
           onBackdropPress={() => toggleError()}
           hasBackdrop={true}>
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={[styles.modalView, style]}>
               <Block center vCenter>
-                <Typo
-                  style={{paddingVertical: 10, textAlign: 'center'}}
-                  weight="l">
-                  {message}
-                </Typo>
+                {!children ? (
+                  <Typo
+                    style={{paddingVertical: 10, textAlign: 'center'}}
+                    weight="l">
+                    {message}
+                  </Typo>
+                ) : (
+                  children
+                )}
                 <Button bordered onPress={() => toggleError()}>
-                  Close
+                  {closeText ? closeText : 'Close'}
                 </Button>
               </Block>
             </View>

@@ -118,7 +118,7 @@ const ProviderDrawerContent = props => {
               <Icon name="credit-card" size={18} color={theme.colors.primary} />
             )}
             label="Subscriptions"
-            onPress={() => props.navigation.navigate('Subscriptions')}
+            onPress={() => props.navigation.navigate('Subscription')}
           />
           <Line />
         </View>

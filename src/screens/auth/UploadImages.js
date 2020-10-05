@@ -43,29 +43,28 @@ const UploadImages = ({navigation, route}) => {
       setImage(`data:${image.mime};base64,${image.data}`);
       addImageToArray(`data:${image.mime};base64,${image.data}`);
       // call add image endpoint
-      const res = await addBusinessImage(route.params.businessId, `data:${image.mime};base64,${image.data}`)
-      console.log("|")
-      console.log("|")
-      console.log("RESPONSE: ", res)
-      console.log("|")
-      console.log("|")
-      console.log(image.data);
+      const res = await addBusinessImage(
+        route.params.businessId,
+        `data:${image.mime};base64,${image.data}`,
+      );
     });
   };
 
   // TODO: TEST THIS
-  const completeRegistration = async() => {
-    if(description == undefined || description === '') {
-      // FAILED 
+  const completeRegistration = async () => {
+    if (description == undefined || description === '') {
+      // FAILED
       // TODO: Display modal to show description is required
-      return
+      return;
     }
-    const response = await updateBusiness(route.params.businessId, {description});
+    const response = await updateBusiness(route.params.businessId, {
+      description,
+    });
 
-    if(response.status === 0) {
-      navigation.navigate("Registration Complete")
+    if (response.status === 0) {
+      navigation.navigate('Registration Complete');
     }
-  }
+  };
   return (
     <Container>
       <Typo weight="s" size="m" style={{width: '100%'}}>
@@ -101,10 +100,10 @@ const UploadImages = ({navigation, route}) => {
                 marginRight: 20,
                 width: 150,
                 height: 150,
-                resizeMode: "contain",
+                resizeMode: 'contain',
                 borderWidth: 1,
                 borderColor: theme.colors.light,
-                backgroundColor: theme.colors.dark
+                backgroundColor: theme.colors.dark,
               }}
               source={{uri: img}}
             />
@@ -132,14 +131,16 @@ const UploadImages = ({navigation, route}) => {
       </Typo>
 
       <Input
-      // bordered
+        // bordered
         onChangeText={text => setDescription(text)}
         multiline={true}
         numberOfLines={10}
         placeholder="Enter a description"
       />
 
-      <Button onPress={() => completeRegistration()}>Proceed to Images</Button>
+      <Button onPress={() => completeRegistration()}>
+        Complete Registration
+      </Button>
     </Container>
   );
 };

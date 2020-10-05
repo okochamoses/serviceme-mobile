@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Image,
   Switch,
   ScrollView,
   ActivityIndicator,
@@ -16,7 +11,10 @@ import Button from '../components/Button';
 import Typo from '../components/Typo';
 import Block from '../components/Block';
 import Input from '../components/Input';
-import {register as registerProvider, register} from "../services/authentication"
+import {
+  register as registerProvider,
+  register,
+} from '../services/authentication';
 import Modal from '../components/Modal';
 
 export default class RegisterProvider extends React.Component {
@@ -32,8 +30,7 @@ export default class RegisterProvider extends React.Component {
       phone: '',
       registerAsProvider: false,
       show: false,
-      apiErrorMessage: "",
-
+      apiErrorMessage: '',
     };
   }
 
@@ -45,47 +42,84 @@ export default class RegisterProvider extends React.Component {
     this.setState({show: !this.state.show});
   };
 
-  register = async() => {
-    this.toggleLoading()
+  register = async () => {
+    this.toggleLoading();
     const {
       firstName,
       lastName,
       phone,
       password,
       registerAsProvider,
-      newsletter
+      newsletter,
     } = this.state;
-    const email = this.state.email.toLowerCase()
+    const email = this.state.email.toLowerCase().trim();
 
-    const response = await registerProvider(firstName, lastName, email, phone, password, registerAsProvider, newsletter)
-    if(response.status === 0) {
-        this.toggleLoading();
-        if(registerAsProvider) {
-          this.props.navigation.navigate("Complete Registration 1", {providerId: response.data._id})
-        } else {
-          this.props.navigation.navigate("Registration Complete")
-        }
-        // Navigate to new page
+    const response = await registerProvider(
+      firstName,
+      lastName,
+      email,
+      phone,
+      password,
+      registerAsProvider,
+      newsletter,
+    );
+    if (response.status === 0) {
+      this.toggleLoading();
+      if (registerAsProvider) {
+        this.props.navigation.navigate('Complete Registration 1', {
+          providerId: response.data._id,
+        });
+      } else {
+        this.props.navigation.navigate('Registration Complete');
+      }
+      // Navigate to new page
     } else {
-        this.toggleLoading();
-        this.setState({show: true})
-        this.setState({apiErrorMessage: response.description})
-        // show error modal
+      this.toggleLoading();
+      this.setState({show: true});
+      this.setState({apiErrorMessage: response.description});
+      // show error modal
     }
-  }
+  };
 
   render() {
     const navigation = this.props.navigation;
     return (
       <ScrollView>
         <Container>
-          <Modal message={this.state.apiErrorMessage} open={this.state.show} type="error" close={() => this.toggleShow()} />
+          <Modal
+            message={this.state.apiErrorMessage}
+            open={this.state.show}
+            type="error"
+            close={() => this.toggleShow()}
+          />
           <Block>
-            <Input editable={!this.state.loading} onChangeText={text => this.setState({firstName: text})} label="First Name" />
-            <Input editable={!this.state.loading} onChangeText={text => this.setState({lastName: text})} label="Last Name" />
-            <Input keyboardType="email-address" editable={!this.state.loading} onChangeText={text => this.setState({email: text})} label="Email" />
-            <Input secureTextEntry={true} editable={!this.state.loading} onChangeText={text => this.setState({password: text})} label="Password" />
-            <Input editable={!this.state.loading} onChangeText={text => this.setState({phone: text})} label="Phone Number" />
+            <Input
+              editable={!this.state.loading}
+              onChangeText={text => this.setState({firstName: text})}
+              label="First Name"
+            />
+            <Input
+              editable={!this.state.loading}
+              onChangeText={text => this.setState({lastName: text})}
+              label="Last Name"
+            />
+            <Input
+              keyboardType="email-address"
+              editable={!this.state.loading}
+              onChangeText={text => this.setState({email: text})}
+              label="Email"
+            />
+            <Input
+              secureTextEntry={true}
+              editable={!this.state.loading}
+              onChangeText={text => this.setState({password: text})}
+              label="Password"
+            />
+            <Input
+              editable={!this.state.loading}
+              onChangeText={text => this.setState({phone: text})}
+              label="Phone Number"
+            />
             <Block
               row
               vCenter

@@ -36,7 +36,7 @@ const ProviderDashboard = ({ navigation, route }) => {
         } else if(currentTime >= 12 && currentTime < 17) {
             return "Good afternoon "
         } else if(currentTime >= 17 && currentTime < 12) {
-            return "Good Evening "
+            return "Good Evenings"
         }
     }
 

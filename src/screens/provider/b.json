@@ -1,0 +1,86 @@
+{
+    "bankId":"FCMB",
+    "accountServiceRequestType":"CREATE_ACCOUNT",
+    "interchangeId":0,
+    "accountCreationRequest":{
+       "accountCategory":"CREATE_BUSINESS_ACCOUNT",
+       "meta":{
+          "CREATE_BUSINESS_ACCOUNT":{
+             "SingnatoryType":"Single",
+             "CatOfBuz":"PAR",
+             "DateOfIncReg":"2016-09-14",
+             "CertOfIncRCNum":"T3567",
+             "TaxIdentNum":"NA",
+             "CoyBuzName":"Test8",
+             "OperatingAddress":"Fcmb Digital",
+             "OperatingCity":"KSF",
+             "OperatingState":"LG",
+             "OperatingPhoneNum":"085059923309",
+             "OperatingEmail":"taiwomeshack@gmail.com",
+             "DirectorDetails":[
+                {
+                   "Id":0,
+                   "DirBVN":"22344053883",
+                   "DirTitle":"MRS.",
+                   "DirName":"OLUWAYEMISI ADEBOLA MESHACK",
+                   "DirGender":"Female",
+                   "DirNationality":"Nigeria",
+                   "DirResidentCountry":"Nigeria",
+                   "DirAddress":"6, KUNLE OTUKOYA CRESCENT IFAKO, GBAGADA.",
+                   "DirDateOfBirth":"1972-03-31",
+                   "DirPhoneNum":"+23409099907745",
+                   "DirOccupation":"Trading",
+                   "DirCity":"KSF",
+                   "DirState":"LG"
+                }
+             ],
+             "Signatories":[
+                {
+                   "SignBVN":"22344053883",
+                   "SignTitle":"MRS.",
+                   "SignName":"OLUWAYEMISI ADEBOLA MESHACK",
+                   "SignGender":"Female",
+                   "SignNationality":"Nigeria",
+                   "SignResidentCountry":"Nigeria",
+                   "SignAddress":"6, KUNLE OTUKOYA CRESCENT IFAKO, GBAGADA.",
+                   "SignDateOfBirth":"1972-03-31",
+                   "SignPhoneNum":"+23409099907745",
+                   "SignOccupation":"Trading"
+                }
+             ],
+             "AddTypeOfBuz":"Sole Proprietorships",
+             "ProdServicesDes":"",
+             "AddPhoneNum":"085059923309",
+             "AddState":"70J",
+             "AddBranch":"110",
+             "AddAuthSignIdent":null,
+             "PreferredBranch":"110",
+             "ReferenceNo":"",
+             "Resident":"",
+             "CountryCode":"NG",
+             "How_You_Heard":"MOBILE",
+             "Complete":"",
+             "TrusteeTitle":"MR.",
+             "TrusteeCountry":"NG",
+             "TrusteeCity":"NA",
+             "TrusteeMaritalStatus":"NA",
+             "TrusteeEmail":"NA",
+             "TrusteeAddr1":"NA",
+             "TrusteeAddr2":"NA",
+             "TrusteeCntry":"NG",
+             "TrusteeDob":"1970-01-05T00:00:00",
+             "TrusteeFname":"NA",
+             "TrusteeLname":"NA",
+             "TrusteeMname":"NA",
+             "TrusteePhoneNo":"NA",
+             "TrusteeState":"LG",
+             "City":"KSF",
+             "State":"LG",
+             "SchemeCode":"OD231",
+             "AccountType":"OD231",
+             "Channel_Id":"MOBILE",
+             "Ref_Code":null
+          }
+       }
+    }
+ }

@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '10'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 def add_flipper_pods!(versions = {})
@@ -77,9 +77,9 @@ target 'serviceme' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'TouchID', :path => "../node_modules/react-native-touch-id"
+  pod 'Firebase/Analytics'
 
   target 'servicemeTests' do
     inherit! :complete

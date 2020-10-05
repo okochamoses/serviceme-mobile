@@ -44,7 +44,7 @@ const Login = ({navigation}) => {
 
   const _doLogin = async () => {
     setLoading(true);
-    const response = await login(email, password);
+    const response = await login(email.trim(), password);
     if (response.status === 0) {
       const categories = await _getCategories();
       console.log(categories);

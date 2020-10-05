@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Dimensions, ScrollView, Image, Modal} from 'react-native';
+import {View, Dimensions, ScrollView, Image} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import publicIP from 'react-native-public-ip';
 import LinearGradient from 'react-native-linear-gradient';
@@ -11,16 +11,31 @@ import Button from '../../components/Button';
 import Line from '../../components/Line';
 import InfoCard from '../../components/InfoCard';
 import ReviewCard from '../../components/ReviewCard';
-import {addVisitor} from '../../services/authentication';
+import Modal from '../../components/Modal';
+import {addVisitor, getProfile} from '../../services/authentication';
+import Input from '../../components/Input';
 const {height, width} = Dimensions.get('window');
 
 const ProviderProfile = ({navigation, route}) => {
-  const [description, setDescription] = useState("");
+  const {business} = route.params;
+  const [description, setDescription] = useState('');
   const [images, setImages] = useState([]);
+  const [onPremiseModal, setOnPremiseModal] = useState(false);
+  const [homeServiceModal, setHomeServiceModal] = useState(false);
+  const [profile, setProfile] = useState({});
+  const [address, setaddress] = useState({});
+  const [onPremiseAddress, setonPremiseAddress] = useState({});
+  const [name, setName] = useState({});
+  const [phone, setPhone] = useState({});
+  
+
   useEffect(() => {
     setImages(route.params.business ? route.params.business.images : []);
-    setDescription(route.params.business ? route.params.business.description : "");
+    setDescription(
+      route.params.business ? route.params.business.description : '',
+    );
     addVisitorApi();
+    setProfile(getProfile().data);
     // do api call here as a visitor
   }, []);
 
@@ -30,17 +45,73 @@ const ProviderProfile = ({navigation, route}) => {
     Geolocation.getCurrentPosition(async position => {
       await addVisitor(
         ip,
-        '5ed95f97cacf8e6929f7cf9a',
-        '5ed7a04e83bcae13e05e9385',
+        route.params.business._id,
+        route.params.business.category,
         position.coords.longitude,
         position.coords.latitude,
         'deviceId',
       );
     });
   };
+
+  const makeHomeServiceRequest = () => {
+    console.log(name, phone, address)
+    // TODO: API call to backend for request placement
+  }
+  
   return (
     <>
       <Container full>
+        {/* Home Service Modal */}
+        <Modal
+          open={homeServiceModal}
+          message={'SMOS'}
+          close={() => {
+            makeHomeServiceRequest()
+            setHomeServiceModal(false)
+          }}
+          closeText="Make Request"
+          visible={true}
+          style={{width: '95%', padding: 30}}>
+          <Typo weight="s">Home Service</Typo>
+          <Line />
+          <Block>
+            <Typo style={{paddingVertical: 5,}}>
+              Enter the address in which the service is required
+            </Typo>
+
+            <Line />
+            <Input label="Name" small placeholder="" onChange={text => setName(text)} />
+            <Input label="Phone" small placeholder="" onChange={text => setPhone(text)} />
+            <Input label="Address" small placeholder="" onChange={text => setaddress(text)} />
+          </Block>
+        </Modal>
+
+        {/* ON PREMISE MODAL */}
+        <Modal
+          open={onPremiseModal}
+          message={'SMOS'}
+          close={() => setOnPremiseModal(false)}
+          closeText="Make Request"
+          visible={true}
+          style={{width: '95%', padding: 30}}>
+          <Typo weight="s">On Premise</Typo>
+          <Line />
+          <Block>
+            <Typo style={{paddingVertical: 5}}>
+              An alert will be sent to the provider letting them know you will
+              be at their place of operations. Here are the details of the
+              provider
+            </Typo>
+            <Typo style={{paddingVertical: 5}}>
+              Address: {`${business.streetAddress}, ${business.lga}`}
+            </Typo>
+            <Typo style={{paddingVertical: 5}}>Phone: {business.phone}</Typo>
+            <Typo style={{paddingVertical: 5, paddingBottom: 20}}>
+              Landmark: {business.landmark}
+            </Typo>
+          </Block>
+        </Modal>
         <ScrollView
           style={{backgroundColor: 'orange', height: 200, width: '100%'}}
           horizontal
@@ -73,8 +144,15 @@ const ProviderProfile = ({navigation, route}) => {
           ))}
         </ScrollView>
         <Block row spaceBetween style={{padding: 20}}>
-          <Button style={{flex: 1, marginRight: 10}}>Home Service</Button>
-          <Button bordered style={{flex: 1, marginLeft: 10}} onPress={() => <Modal  visible={true}><Typo>Moses</Typo></Modal>}>
+          <Button
+            style={{flex: 1, marginRight: 10}}
+            onPress={() => setHomeServiceModal(true)}>
+            Home Service
+          </Button>
+          <Button
+            bordered
+            style={{flex: 1, marginLeft: 10}}
+            onPress={() => setOnPremiseModal(true)}>
             On Premise
           </Button>
         </Block>

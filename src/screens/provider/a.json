@@ -1,0 +1,86 @@
+{
+    "bankId":"FCMB",
+    "accountServiceRequestType":"CREATE_ACCOUNT",
+    "interchangeId":0,
+    "accountCreationRequest":{
+       "accountCategory":"CREATE_BUSINESS_ACCOUNT",
+       "meta":{
+          "CREATE_BUSINESS_ACCOUNT":{
+             "SingnatoryType":"Single",
+             "CatOfBuz":"GOV",
+             "DateOfIncReg":"2020-03-18T14:32:39",
+             "CertOfIncRCNum":"T5689",
+             "TaxIdentNum":"NA",
+             "CoyBuzName":"Test7",
+             "OperatingAddress":"Fcmb Digital",
+             "OperatingCity":"KSF",
+             "OperatingState":"LG",
+             "OperatingPhoneNum":"08059923309",
+             "OperatingEmail":"taiwomeshack@gmail.com",
+             "DirectorDetails":[
+                {
+                   "Id":0,
+                   "DirBVN":"22344053883",
+                   "DirTitle":"MRS.",
+                   "DirName":"OLUWAYEMISI MESHACK ADEBOLA",
+                   "DirGender":"Female",
+                   "DirNationality":null,
+                   "DirResidentCountry":"Nigeria",
+                   "DirAddress":"6, KUNLE OTUKOYA CRESCENT IFAKO, GBAGADA.",
+                   "DirDateOfBirth":"31 Mar, 1972",
+                   "DirPhoneNum":null,
+                   "DirOccupation":"Trading",
+                   "DirCity":"KSF",
+                   "DirState":"LG"
+                }
+             ],
+             "Signatories":[
+                {
+                   "SignBVN":"22344053883",
+                   "SignTitle":"MRS.",
+                   "SignName":"OLUWAYEMISI MESHACK ADEBOLA",
+                   "SignGender":"Female",
+                   "SignNationality":null,
+                   "SignResidentCountry":"Nigeria",
+                   "SignAddress":"6, KUNLE OTUKOYA CRESCENT IFAKO, GBAGADA.",
+                   "SignDateOfBirth":"31 Mar, 1972",
+                   "SignPhoneNum":null,
+                   "SignOccupation":"Trading"
+                }
+             ],
+             "AddTypeOfBuz":"Sole Proprietorship",
+             "ProdServicesDes":"",
+             "AddPhoneNum":"08059923309",
+             "AddState":"70J",
+             "AddBranch":"110",
+             "AddAuthSignIdent":null,
+             "PreferredBranch":null,
+             "ReferenceNo":"",
+             "Resident":"",
+             "CountryCode":"NG",
+             "How_You_Heard":"MOBILE",
+             "Complete":"",
+             "TrusteeTitle":"MR.",
+             "TrusteeCountry":"NG",
+             "TrusteeCity":"NA",
+             "TrusteeMaritalStatus":"NA",
+             "TrusteeEmail":"NA",
+             "TrusteeAddr1":"NA",
+             "TrusteeAddr2":"NA",
+             "TrusteeCntry":"NG",
+             "TrusteeDob":"1970-01-05T00:00:00",
+             "TrusteeFname":"NA",
+             "TrusteeLname":"NA",
+             "TrusteeMname":"NA",
+             "TrusteePhoneNo":"NA",
+             "TrusteeState":"LG",
+             "City":null,
+             "State":null,
+             "SchemeCode":"OD231",
+             "AccountType":"OD231",
+             "Channel_Id":"MOBILE",
+             "Ref_Code":""
+          }
+       }
+    }
+ }

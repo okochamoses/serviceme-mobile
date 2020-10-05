@@ -45,14 +45,14 @@ const CompleteRegistration1 = ({navigation, route}) => {
   const [categories, setCategories] = useState([]);
   const [lgas, setLgas] = useState([]);
 
-  const [businessName, setBusinessName] = useState('New Biz');
-  const [businessEmail, setBusinessEmail] = useState('okc@email.com');
-  const [businessType, setBusinessType] = useState('5f08d346ef31f67a2f6fa55c');
-  const [phone, setphone] = useState('2340901212121');
-  const [streetAddress, setstreetAddress] = useState('12 K close');
-  const [businessState, setbusinessState] = useState('Lagos');
-  const [lga, setlga] = useState('Agege');
-  const [landmark, setlandmark] = useState('Agege Industries');
+  const [businessName, setBusinessName] = useState('');
+  const [businessEmail, setBusinessEmail] = useState('');
+  const [businessType, setBusinessType] = useState('');
+  const [phone, setphone] = useState('');
+  const [streetAddress, setstreetAddress] = useState('');
+  const [businessState, setbusinessState] = useState('');
+  const [lga, setlga] = useState('');
+  const [landmark, setlandmark] = useState('');
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);

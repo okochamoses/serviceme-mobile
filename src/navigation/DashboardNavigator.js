@@ -5,6 +5,8 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import ProviderDashboard from '../screens/provider/Dashboard';
 import AnalyticsScreen from '../screens/provider/Analytics';
+import SubscriptionScreen from '../screens/provider/Subscriptions';
+import SubscribeScreen from '../screens/provider/Subscribe';
 import BusinessesScreen from '../screens/provider/Businesses';
 import BusinessProfile from '../screens/provider/BusinessProfile';
 import headerProps from './headerProps';
@@ -15,6 +17,7 @@ const Businesses = createStackNavigator();
 const Profile = createStackNavigator();
 const Dashboard = createStackNavigator();
 const Analytics = createStackNavigator();
+const Subscription = createStackNavigator();
 
 const BusinessStack = () => (
   <Businesses.Navigator initialRouteName="Businesses & Categories">
@@ -70,12 +73,35 @@ const AnalyticsStack = () => (
   </Analytics.Navigator>
 );
 
+const SubscriptionStack = () => (
+  <Subscription.Navigator initialRouteName="Subscription">
+    <Subscription.Screen
+      options={({navigation}) =>
+        headerProps('menu', navigation.openDrawer, 'bell-outline', () =>
+          navigation.navigate('Dashboard'),
+        )
+      }
+      name="Subscription"
+      component={SubscriptionScreen}
+    />
+    <Subscription.Screen
+      options={({navigation}) =>
+        headerProps('chevron-left', () => navigation.goBack())
+      }
+      name="Subscribe"
+      component={SubscribeScreen}
+    />
+  </Subscription.Navigator>
+);
+
 const DashboardNavigator = () => (
-  <Provider.Navigator drawerContent={props => <ProviderDrawerContent {...props} />} >
+  <Provider.Navigator
+    drawerContent={props => <ProviderDrawerContent {...props} />}>
     <Provider.Screen name="Dashboard" component={DashboardStack} />
     <Provider.Screen name="Businesses" component={BusinessStack} />
     <Provider.Screen name="Profile" component={ProfileStack} />
     <Provider.Screen name="Analytics" component={AnalyticsStack} />
+    <Provider.Screen name="Subscription" component={SubscriptionStack} />
   </Provider.Navigator>
 );
 

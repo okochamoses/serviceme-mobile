@@ -1,5 +1,12 @@
 import React, {Component, useContext, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Image, ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import theme from '../constants';
 import Container from '../components/Container';
 import Button from '../components/Button';
@@ -23,9 +30,9 @@ const Auth = ({navigation}) => {
       // setErrorMessage(response.description);
       setLoading(false);
     } else {
-        await AsyncStorage.setItem('categories', JSON.stringify(categories));
-        setLoading(false)
-        dispatch(InitActions.navigateToUser());
+      await AsyncStorage.setItem('categories', JSON.stringify(categories));
+      setLoading(false);
+      dispatch(InitActions.navigateToUser());
     }
   };
 
@@ -58,7 +65,11 @@ const Auth = ({navigation}) => {
         <Button onPress={() => navigation.navigate('Login')}>Login</Button>
         <Button onPress={() => navigation.navigate('Register')}>Sign Up</Button>
         <Button bordered onPress={_goToApp}>
-          {loading ? <ActivityIndicator color={constants.colors.primary} /> : "Continue to app"}
+          {loading ? (
+            <ActivityIndicator color={constants.colors.primary} />
+          ) : (
+            'Continue to app'
+          )}
         </Button>
       </Block>
     </Container>

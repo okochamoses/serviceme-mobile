@@ -18,8 +18,6 @@ const DrawerContent = props => {
   const isLoggedIn = useSelector(({init}) => init.isLoggedIn);
   const currentScreen = useSelector(({init}) => init.isAuthenticated);
 
-  console.log(isLoggedIn, currentScreen);
-
   const _getCategories = async () => {
     setProfile(await storage.getProfile());
   };
@@ -69,7 +67,6 @@ const DrawerContent = props => {
     ]);
 
   const logout = async () => {
-    console.log('Console');
     try {
       await AsyncStorage.removeItem('token');
       await AsyncStorage.removeItem('profile');
@@ -90,7 +87,6 @@ const DrawerContent = props => {
             />
           </Block>
         </View>
-{console.log(profile)}
         <Line />
 
         <View>

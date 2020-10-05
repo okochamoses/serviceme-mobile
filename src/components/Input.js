@@ -17,6 +17,7 @@ const Input = props => {
   props.style ? [containerStyles.push(props.style)] : null;
   props.textStyle ? textStyles.push(props.textStyle) : null;
   props.containerStyle ? containerStyles.push(props.containerStyle) : null;
+  props.small ? containerStyles.push({padding: 8}) : null;
 
   const renderLabel = () => {
     if (props.label) {
